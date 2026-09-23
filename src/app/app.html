@@ -1,1 +1,18 @@
-<h1>Hello, {{name}}. This project is called {{project}}</h1>
+<div class="container">
+  @for (pokemon of pokemonList; track pokemon.id){
+    <div class="pokemon-card">
+      {{pokemon.name}} , {{pokemon.gender}}
+    </div>
+  } @empty {
+    <p class="empty-array">No items available in the list.</p>
+  }
+  <p>Water Types</p>
+  @for (pokemon of pokemonList; track pokemon.type){
+    @if (pokemon.type == "Water"){
+      <div class="pokemon-card">
+        {{pokemon.name}} , {{pokemon.gender}}
+      </div>
+    }
+  }
+</div>
+
