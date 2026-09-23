@@ -9,4 +9,6 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('adam_taylor_Learning_Angular_F26');
+  name = 'Adam Taylor';
+  project = 'my-first-project';
 }
