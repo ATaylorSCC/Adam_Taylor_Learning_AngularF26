@@ -1,4 +1,19 @@
 <div class="pokemon-card">
   <h3>{{pokemon().name}}</h3>
-  <p>{{pokemon().type}}</p>
+  @switch (pokemon().type){
+    @case ('Electric'){<span class = "badge electric">Electric</span>}
+    @case ('Fire'){<span class = "badge fire">Fire</span>}
+    @case ('Water'){<span class = "badge water">Water</span>}
+    @case ('Fighting'){<span class = "badge fighting">Fighting</span>}
+    @case ('Psychic'){<span class = "badge psychic">Psychic</span>}
+    @default {
+      <span class="badge">Unknown</span>
+    }
+  }
+  @if(pokemon().gender){
+    <p>{{pokemon().gender}}</p>
+  } @else {
+    <p class="no-gender">Gender is Unknown</p>
+  }
+
 </div>
