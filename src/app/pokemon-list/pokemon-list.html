@@ -1,3 +1,8 @@
 <div class="pokemon-list">
   <h2>Pokemon</h2>
+  @for(pokemon of pokemonList; track pokemon.id){
+    <app-pokemon-list-item [pokemon]="pokemon"/>
+  } @empty {
+    <p>No pokemon to show yet.</p>
+  }
 </div>
