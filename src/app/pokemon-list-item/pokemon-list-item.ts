@@ -9,4 +9,10 @@ import { Pokemon } from '../shared/models/pokemon';
 })
 export class PokemonListItem {
   pokemon = input.required<Pokemon>();
+  expanded = false;
+
+  toggle(): void{
+    this.expanded = !this.expanded;
+  }
 }
+
