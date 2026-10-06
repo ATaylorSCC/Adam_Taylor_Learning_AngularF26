@@ -16,8 +16,10 @@
     <p class="no-gender">Gender is Unknown</p>
   }
 
+
   @if (expanded){
     <p>Generation: {{pokemon().generation}}</p>
+    <button class="remove-button" (click)="removePokemon()">Delete the pokemon</button>
   }
 
 </div>

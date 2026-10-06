@@ -1,7 +1,14 @@
 <div class="pokemon-list">
   <h2>Pokemon</h2>
-  @for(pokemon of pokemonList; track pokemon.id){
-    <app-pokemon-list-item [pokemon]="pokemon"/>
+  <h2>Fire Pokemon: {{ fireTypeCount()}}</h2>
+  <h2>Water Pokemon: {{ waterTypeCount()}}</h2>
+  <h2>Grass Pokemon: {{ grassTypeCount()}}</h2>
+  <h2>Fighting Pokemon: {{ fightingTypeCount()}}</h2>
+  <h2>Psychic Pokemon: {{ psychicTypeCount()}}</h2>
+  <button (click)="addRandomPokemon()">Add Random Pokemon</button>
+  @for(pokemon of pokemonList(); track pokemon.id){
+    <app-pokemon-list-item [pokemon]="pokemon"
+    (remove)="removePokemon($event)"/>
   } @empty {
     <p>No pokemon to show yet.</p>
   }

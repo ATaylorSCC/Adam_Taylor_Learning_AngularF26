@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { PokemonList } from '../pokemon-list/pokemon-list';
 import { Pokemon } from '../shared/models/pokemon';
 
@@ -9,10 +9,14 @@ import { Pokemon } from '../shared/models/pokemon';
 })
 export class PokemonListItem {
   pokemon = input.required<Pokemon>();
+  remove = output<number>();
   expanded = false;
 
   toggle(): void{
     this.expanded = !this.expanded;
+  }
+  removePokemon(): void {
+    this.remove.emit(this.pokemon().id);
   }
 }
 
