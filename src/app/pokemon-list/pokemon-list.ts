@@ -12,6 +12,8 @@ import { PokemonService } from '../services/pokemon-service';
 })
 export class PokemonList {
   private pokemonService = inject(PokemonService);
+  protected defaultCategory = this.pokemonService.defaultCategory;
+
   protected pokemonList = this.pokemonService.pokemonList;
   protected fireTypeCount = this.pokemonService.fireTypeCount;
   protected waterTypeCount = this.pokemonService.waterTypeCount;
