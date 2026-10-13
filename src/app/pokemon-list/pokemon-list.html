@@ -5,6 +5,7 @@
   <h2>Grass Pokemon: {{ grassTypeCount()}}</h2>
   <h2>Fighting Pokemon: {{ fightingTypeCount()}}</h2>
   <h2>Psychic Pokemon: {{ psychicTypeCount()}}</h2>
+  <h1>Data Source (Placeholder): {{apiBaseUrl}}</h1>
   <button (click)="addRandomPokemon()">Add Random Pokemon</button>
   @for(pokemon of pokemonList(); track pokemon.id){
     <app-pokemon-list-item [pokemon]="pokemon"

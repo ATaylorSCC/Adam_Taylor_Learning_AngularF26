@@ -12,6 +12,7 @@ import { PokemonService } from '../services/pokemon-service';
 })
 export class PokemonList {
   private pokemonService = inject(PokemonService);
+  protected apiBaseUrl = this.pokemonService.apiBaseUrl;
   protected defaultCategory = this.pokemonService.defaultCategory;
 
   protected pokemonList = this.pokemonService.pokemonList;
