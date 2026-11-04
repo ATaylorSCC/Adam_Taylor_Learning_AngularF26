@@ -1,0 +1,9 @@
+@if (pokemon(); as p){
+  <h1>{{p.name}}</h1>
+  <p>ID: {{p.id}}</p>
+  <p>Type: {{p.type}}</p>
+  <p>Gender: {{p.gender || 'Unknown'}}</p>
+  <p>Generation: {{p.generation}}</p>
+} @else {
+  <p>Pokemon not found</p>
+}

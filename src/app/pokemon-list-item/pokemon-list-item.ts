@@ -1,11 +1,13 @@
 import { Component, input, output } from '@angular/core';
 import { PokemonList } from '../pokemon-list/pokemon-list';
 import { Pokemon } from '../shared/models/pokemon';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list-item',
   templateUrl: './pokemon-list-item.html',
   styleUrl: './pokemon-list-item.scss',
+  imports: [RouterLink]
 })
 export class PokemonListItem {
   pokemon = input.required<Pokemon>();

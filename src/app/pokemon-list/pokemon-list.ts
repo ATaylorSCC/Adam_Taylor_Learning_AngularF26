@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core';
 import { Pokemon } from '../shared/models/pokemon';
 import { PokemonListItem } from '../pokemon-list-item/pokemon-list-item';
 import { PokemonService } from '../services/pokemon-service';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.html',
   styleUrl: './pokemon-list.scss',
-  imports: [PokemonListItem],
+  imports: [PokemonListItem, RouterLink],
 })
 export class PokemonList {
   private pokemonService = inject(PokemonService);
