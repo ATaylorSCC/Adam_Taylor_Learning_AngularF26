@@ -1,0 +1,37 @@
+
+<h2>Add a Pokemon</h2>
+
+<form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
+
+  <label>Pokemon Name:</label>
+  <input type="text" formControlName="name" placeholder="Enter Pokemon name">
+
+  @if (pokemonForm.controls.name.touched) {
+    @if (pokemonForm.controls.name.hasError('required')) {
+      <p class="error">Pokemon name is required.</p>
+    }
+
+    @if (pokemonForm.controls.name.hasError('minlength')) {
+      <p class="error">Name must be at least 3 characters.</p>
+    }
+  }
+
+  <label>Type:</label>
+  <input type="text" formControlName="type" placeholder="Enter Pokemon type">
+
+  @if (pokemonForm.controls.type.touched &&
+  pokemonForm.controls.type.hasError('required')) {
+    <p class="error">Pokemon type is required.</p>
+  }
+
+  <label>Gender:</label>
+  <input type="text" formControlName="gender" placeholder="Enter Pokemon gender">
+
+  <label>Generation:</label>
+  <input type="text" formControlName="generation" placeholder="Enter Pokemon generation">
+
+  <button type="submit" [disabled]="pokemonForm.invalid">
+    Add Pokemon
+  </button>
+
+</form>
