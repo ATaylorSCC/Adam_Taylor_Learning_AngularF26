@@ -1,6 +1,8 @@
 import { Component, effect, inject, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PokemonService } from '../services/pokemon-service';
+import { pokemonNameValidator } from '../validators/pokemon-name.validator';
+import { pokemonGenerationValidator } from '../validators/pokemon-generation.validator';
 
 @Component({
   selector: 'app-pokemon-form',
@@ -15,10 +17,12 @@ export class PokemonForm {
   private pokemonService = inject(PokemonService);
 
   pokemonForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]],
+    name: ['', [Validators.required, Validators.minLength(2), pokemonNameValidator]],
     type: ['', Validators.required],
     gender: [''],
-    generation: [''],
+    generation: ['']
+    },{
+    validators: pokemonGenerationValidator
   });
 
   constructor() {

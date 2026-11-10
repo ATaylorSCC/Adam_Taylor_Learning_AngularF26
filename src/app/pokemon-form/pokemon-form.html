@@ -21,6 +21,11 @@
       <p class="error">Name must be at least 3 characters.</p>
     }
   }
+  @if (pokemonForm.get('name')?.touched &&
+  pokemonForm.get('name')?.hasError('whitespace')) {
+    <p class="error">Pokemon name cannot be only whitespace.</p>
+  }
+
 
   <label>Type:</label>
   <input type="text" formControlName="type" placeholder="Enter Pokemon type">
@@ -35,6 +40,18 @@
 
   <label>Generation:</label>
   <input type="text" formControlName="generation" placeholder="Enter Pokemon generation">
+
+
+  @if (pokemonForm.hasError('invalidGeneration') &&
+  (pokemonForm.get('type')?.touched ||
+    pokemonForm.get('generation')?.touched)) {
+
+    <p class="error">
+      Fairy type Pokemon cannot be from Generation 1.
+    </p>
+
+  }
+
 
   <button type="submit" [disabled]="pokemonForm.invalid">
     {{ id() ? 'Save Changes' : 'Add Pokemon' }}
