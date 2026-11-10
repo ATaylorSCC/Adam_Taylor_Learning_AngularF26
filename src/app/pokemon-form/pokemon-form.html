@@ -1,5 +1,11 @@
 
-<h2>Add a Pokemon</h2>
+<h2>
+  @if (id()) {
+    <h2>Edit Pokemon</h2>
+  } @else {
+    <h2>Add a Pokemon</h2>
+  }
+</h2>
 
 <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
 
@@ -31,7 +37,7 @@
   <input type="text" formControlName="generation" placeholder="Enter Pokemon generation">
 
   <button type="submit" [disabled]="pokemonForm.invalid">
-    Add Pokemon
+    {{ id() ? 'Save Changes' : 'Add Pokemon' }}
   </button>
 
 </form>

@@ -21,6 +21,7 @@
     <p>Generation: {{pokemon().generation}}</p>
     <button class="remove-button" (click)="removePokemon()">Delete the pokemon</button>
     <a [routerLink]="['/pokemon', pokemon().id]"(click)="$event.stopPropagation()">View Details</a>
+    <a [routerLink]="['/pokemon/edit', pokemon().id]" (click)="$event.stopPropagation()">Edit Pokemon</a>
   }
 
 

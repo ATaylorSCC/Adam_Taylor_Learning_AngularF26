@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PokemonService } from '../services/pokemon-service';
 
@@ -9,6 +9,7 @@ import { PokemonService } from '../services/pokemon-service';
   styleUrl: './pokemon-form.scss',
 })
 export class PokemonForm {
+  id = input<string>();
 
   private fb = inject(FormBuilder);
   private pokemonService = inject(PokemonService);
@@ -17,21 +18,48 @@ export class PokemonForm {
     name: ['', [Validators.required, Validators.minLength(2)]],
     type: ['', Validators.required],
     gender: [''],
-    generation: ['']
-  })
+    generation: [''],
+  });
+
+  constructor() {
+    effect(() => {
+      const pokemonId = Number(this.id());
+
+      if (this.id()) {
+        const pokemon = this.pokemonService.pokemonList().find((p) => p.id === pokemonId);
+
+        if (pokemon) {
+          this.pokemonForm.patchValue({
+            name: String(pokemon.name),
+            type: pokemon.type,
+            gender: pokemon.gender ?? '',
+            generation: pokemon.generation,
+          });
+        }
+      }
+    });
+  }
   protected readonly onsubmit = onsubmit;
 
   onSubmit(): void {
-    if(this.pokemonForm.invalid) return;
+    if (this.pokemonForm.invalid) return;
+
     const value = this.pokemonForm.getRawValue();
-    this.pokemonService.addPokemon({
-      id: Math.max(0, ...this.pokemonService.pokemonList().map((p) => p.id)) + 1,
+
+    const pokemon = {
+      id: this.id() ? Number(this.id()) : Date.now(),
       name: value.name ?? '',
       type: value.type ?? '',
       gender: value.gender ?? '',
       generation: value.generation ?? '',
-    });
+    };
+
+    if (this.id()) {
+      this.pokemonService.updatePokemon(pokemon);
+    } else {
+      this.pokemonService.addPokemon(pokemon);
+    }
+
     this.pokemonForm.reset();
-    //console.log(this.pokemonForm.getRawValue());
   }
 }

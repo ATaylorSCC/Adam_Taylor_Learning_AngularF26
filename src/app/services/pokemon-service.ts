@@ -7,7 +7,6 @@ import {APP_CONFIG} from '../config/app-config';
   providedIn: 'root',
 })
 export class PokemonService {
-
   private config = inject(APP_CONFIG);
   defaultCategory = this.config.defaultCategory;
   apiBaseUrl = this.config.apiBaseUrl;
@@ -30,8 +29,13 @@ export class PokemonService {
   removePokemon(id: number): void {
     this.pokemons.update((list) => list.filter((pokemon) => pokemon.id !== id));
   }
+  updatePokemon(pokemon: Pokemon): void {
+    this.pokemons.update((list) => list.map((p) => (p.id === pokemon.id ? pokemon : p)));
+  }
 
-  fireTypePokemon = computed(() => this.pokemonList().filter((p) => p.type === this.config.defaultCategory));
+  fireTypePokemon = computed(() =>
+    this.pokemonList().filter((p) => p.type === this.config.defaultCategory),
+  );
   fireTypeCount = computed(() => this.fireTypePokemon().length);
 
   waterTypePokemon = computed(() => this.pokemonList().filter((p) => p.type === 'Water'));

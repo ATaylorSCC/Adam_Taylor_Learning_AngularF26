@@ -7,5 +7,6 @@ export const routes: Routes = [
   {path: 'pokemon', component: PokemonList},
   {path: 'pokemon/add', component: PokemonForm},
   {path: 'pokemon/:id', component: PokemonDetail},
+  {path: 'pokemon/edit/:id', component: PokemonForm},
   {path: '', redirectTo: 'pokemon', pathMatch: 'full'}
 ];
