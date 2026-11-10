@@ -16,6 +16,15 @@
 <!--  }-->
 <!--</div>-->
 
+<nav>
+  <a routerLink="/pokemon">Pokemon List</a>
+  <a routerLink="/pokemon/add">Add Pokemon</a>
+
+  <button (click)="editGuard.toggle()">
+    {{ editGuard.guardEnabled() ? 'Unlock Editing' : 'Lock Editing' }}
+  </button>
+</nav>
+
 <router-outlet/>
 <div class="container">
   <app-pokemon-list></app-pokemon-list>
