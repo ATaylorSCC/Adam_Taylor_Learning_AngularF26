@@ -4,6 +4,7 @@ import { Pokemon } from '../shared/models/pokemon';
 import {APP_CONFIG} from '../config/app-config';
 import { HttpClient } from '@angular/common/http';
 import { PokemonApi } from '../shared/models/pokemon-api';
+import { map, forkJoin, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +14,16 @@ export class PokemonService {
   defaultCategory = this.config.defaultCategory;
   apiBaseUrl = this.config.apiBaseUrl;
   private http = inject(HttpClient);
+  error = signal<string | null>(null);
+  loading = signal(false);
 
   private pokemons = signal<Pokemon[]>([
-    { id: 1, name: 'Pikachu', gender: 'Male', type: 'Electric', generation: 'First' },
-    { id: 2, name: 'Charizard', type: 'Fire', generation: 'First' },
-    { id: 3, name: 'Squirtle', gender: 'Female', type: 'Water', generation: 'First' },
-    { id: 4, name: 'Lucario', type: 'Fighting', generation: 'Fourth' },
-    { id: 5, name: 'Gardevoir', gender: 'Female', type: 'Psychic', generation: 'Third' },
-    { id: 6, name: 'Buizel', gender: 'Male', type: 'Water', generation: 'First' },
+    // { id: 1, name: 'Pikachu', gender: 'Male', type: 'Electric', generation: 'First' },
+    // { id: 2, name: 'Charizard', type: 'Fire', generation: 'First' },
+    // { id: 3, name: 'Squirtle', gender: 'Female', type: 'Water', generation: 'First' },
+    // { id: 4, name: 'Lucario', type: 'Fighting', generation: 'Fourth' },
+    // { id: 5, name: 'Gardevoir', gender: 'Female', type: 'Psychic', generation: 'Third' },
+    // { id: 6, name: 'Buizel', gender: 'Male', type: 'Water', generation: 'First' },
   ]);
 
   pokemonList = this.pokemons.asReadonly();
@@ -60,6 +63,7 @@ export class PokemonService {
     effect(() => {
       console.log('Pokemon Index: ', this.pokemonCount);
     });
+    this.load();
   }
 
   // for the sake of the bonus mark week 4
@@ -77,6 +81,50 @@ export class PokemonService {
   }
 
   getPokemonFromApi() {
-    return this.http.get<PokemonApi>(`${this.config.apiBaseUrl}/pokemon/pikachu`);
+    return this.http
+      .get<PokemonApi>(`${this.config.apiBaseUrl}/pokemon/pikachu`)
+      .pipe(map((apiPokemon) => this.mapPokemon(apiPokemon)));
+  }
+
+  mapPokemon(apiPokemon: PokemonApi): Pokemon {
+    const type = apiPokemon.types[0]?.type.name ?? '';
+
+    return {
+      id: apiPokemon.id,
+      name: apiPokemon.name,
+      type: type.charAt(0).toUpperCase() + type.slice(1),
+      gender: '',
+      generation: '',
+    };
+  }
+
+  load(): void {
+    this.loading.set(true);
+    this.error.set(null);
+    this.http
+      .get<{
+        results: { name: string; url: string }[];
+      }>(`${this.config.apiBaseUrl}/pokemon`, {
+        params: { limit: 20 },
+      })
+      .pipe(
+        switchMap((response) => {
+          const requests = response.results.map((pokemon) =>
+            this.http.get<PokemonApi>(pokemon.url),
+          );
+
+          return forkJoin(requests);
+        }),
+        map((results) => results.map((pokemon) => this.mapPokemon(pokemon))),
+      )
+      .subscribe({
+        next: (list) => {
+          this.pokemons.set(list);
+          this.error.set(null);
+        },
+        error: () => {
+          this.error.set('Could not load Pokemon.');
+        },
+      });
   }
 }

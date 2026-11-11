@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { PokemonList } from './pokemon-list/pokemon-list';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { inject } from '@angular/core';
 import { EditGuard } from './services/edit-guard';
 @Component({
   selector: 'app-root',
-  imports: [PokemonList, RouterOutlet],
+  imports: [PokemonList, RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

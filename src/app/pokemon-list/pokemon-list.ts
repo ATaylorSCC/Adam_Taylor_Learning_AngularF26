@@ -13,8 +13,11 @@ import {RouterLink} from '@angular/router';
 })
 export class PokemonList implements OnInit {
   private pokemonService = inject(PokemonService);
+  loading = this.pokemonService.loading;
+  error = this.pokemonService.error;
+
   ngOnInit(): void {
-    this.pokemonService.getPokemonFromApi().subscribe(data => {
+    this.pokemonService.getPokemonFromApi().subscribe((data) => {
       console.log(data);
     });
   }

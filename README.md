@@ -71,3 +71,8 @@ https://pokeapi.co/api/v2/pokemon/pikachu
 
 The API returns JSON data containing Pokémon information
 such as names, types, IDs, and sprites.
+
+AOI Implementation
+
+I chose option A to retrieve pokemon data. The retrieved data is stored in
+a writable signal, which allows the ability to add edit and delete.

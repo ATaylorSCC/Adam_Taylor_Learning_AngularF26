@@ -1,3 +1,13 @@
+
+@if (loading()) {
+  <p>Loading Pokemon...</p>
+}
+
+@if (error()) {
+  <p style="color: red">{{ error() }}</p>
+}
+
+
 <div class="pokemon-list">
   <h2>Pokemon</h2>
   <h2>{{defaultCategory}} Pokemon: {{ fireTypeCount()}}</h2>
