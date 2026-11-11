@@ -10,12 +10,12 @@
 
 <div class="pokemon-list">
   <h2>Pokemon</h2>
+  <p>Note: Changes are saved on this device only and will reset when the page is refreshed.</p>
   <h2>{{defaultCategory}} Pokemon: {{ fireTypeCount()}}</h2>
   <h2>Water Pokemon: {{ waterTypeCount()}}</h2>
   <h2>Grass Pokemon: {{ grassTypeCount()}}</h2>
   <h2>Fighting Pokemon: {{ fightingTypeCount()}}</h2>
   <h2>Psychic Pokemon: {{ psychicTypeCount()}}</h2>
-  <h1>Data Source (Placeholder): {{apiBaseUrl}}</h1>
   <button (click)="addRandomPokemon()">Add Random Pokemon</button>
   @for(pokemon of pokemonList(); track pokemon.id){
     <app-pokemon-list-item [pokemon]="pokemon"

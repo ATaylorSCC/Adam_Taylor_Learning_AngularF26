@@ -121,9 +121,11 @@ export class PokemonService {
         next: (list) => {
           this.pokemons.set(list);
           this.error.set(null);
+          this.loading.set(false);
         },
         error: () => {
           this.error.set('Could not load Pokemon.');
+          this.loading.set(false);
         },
       });
   }

@@ -76,3 +76,8 @@ AOI Implementation
 
 I chose option A to retrieve pokemon data. The retrieved data is stored in
 a writable signal, which allows the ability to add edit and delete.
+
+Local Data Changes
+the application retrieves the data from the pokemon api, adjusting these
+values only reflects the local writable signal, not the api itself. When 
+the page is refreshed the api is recalled and the original data is back.
