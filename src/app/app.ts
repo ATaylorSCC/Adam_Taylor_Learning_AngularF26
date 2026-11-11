@@ -4,6 +4,7 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 import { inject } from '@angular/core';
 import { EditGuard } from './services/edit-guard';
 import { LoadingService } from './services/loading';
+import { ErrorService } from './services/error';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +17,6 @@ export class App {
   name = 'Adam Taylor';
   editGuard = inject(EditGuard);
   loadingService = inject(LoadingService);
+  errorService = inject(ErrorService);
   //project = 'my-first-project';
 }

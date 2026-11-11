@@ -17,6 +17,16 @@
 <!--</div>-->
 
 
+@if (errorService.errorMessage()) {
+  <div class="error-banner">
+    <span>{{ errorService.errorMessage() }}</span>
+
+    <button (click)="errorService.clearError()">
+      Dismiss
+    </button>
+  </div>
+}
+
 <nav>
   <a routerLink="/pokemon">Pokemon List</a>
   <a routerLink="/pokemon/add">Add Pokemon</a>
