@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Pokemon } from '../shared/models/pokemon';
 import { PokemonListItem } from '../pokemon-list-item/pokemon-list-item';
 import { PokemonService } from '../services/pokemon-service';
@@ -11,8 +11,14 @@ import {RouterLink} from '@angular/router';
   styleUrl: './pokemon-list.scss',
   imports: [PokemonListItem, RouterLink],
 })
-export class PokemonList {
+export class PokemonList implements OnInit {
   private pokemonService = inject(PokemonService);
+  ngOnInit(): void {
+    this.pokemonService.getPokemonFromApi().subscribe(data => {
+      console.log(data);
+    });
+  }
+
   protected apiBaseUrl = this.pokemonService.apiBaseUrl;
   protected defaultCategory = this.pokemonService.defaultCategory;
 

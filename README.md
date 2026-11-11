@@ -57,3 +57,17 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## API
+
+This project uses PokéAPI to retrieve Pokémon information.
+
+API Documentation:
+https://pokeapi.co/docs/v2
+
+Example Request:
+https://pokeapi.co/api/v2/pokemon/pikachu
+
+The API returns JSON data containing Pokémon information
+such as names, types, IDs, and sprites.

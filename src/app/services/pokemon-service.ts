@@ -2,6 +2,8 @@ import { computed, effect, signal, inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../shared/models/pokemon';
 import {APP_CONFIG} from '../config/app-config';
+import { HttpClient } from '@angular/common/http';
+import { PokemonApi } from '../shared/models/pokemon-api';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +12,7 @@ export class PokemonService {
   private config = inject(APP_CONFIG);
   defaultCategory = this.config.defaultCategory;
   apiBaseUrl = this.config.apiBaseUrl;
+  private http = inject(HttpClient);
 
   private pokemons = signal<Pokemon[]>([
     { id: 1, name: 'Pikachu', gender: 'Male', type: 'Electric', generation: 'First' },
@@ -71,5 +74,9 @@ export class PokemonService {
     const random = Math.floor(Math.random() * randomPokemon.length);
 
     this.addPokemon(randomPokemon[random]);
+  }
+
+  getPokemonFromApi() {
+    return this.http.get<PokemonApi>(`${this.config.apiBaseUrl}/pokemon/pikachu`);
   }
 }
