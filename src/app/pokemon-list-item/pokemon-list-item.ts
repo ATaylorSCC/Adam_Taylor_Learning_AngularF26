@@ -2,12 +2,13 @@ import { Component, input, output } from '@angular/core';
 import { PokemonList } from '../pokemon-list/pokemon-list';
 import { Pokemon } from '../shared/models/pokemon';
 import {RouterLink} from '@angular/router';
+import { TitleCasePipe, DecimalPipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-list-item',
   templateUrl: './pokemon-list-item.html',
   styleUrl: './pokemon-list-item.scss',
-  imports: [RouterLink]
+  imports: [RouterLink, TitleCasePipe, DecimalPipe, UpperCasePipe]
 })
 export class PokemonListItem {
   pokemon = input.required<Pokemon>();

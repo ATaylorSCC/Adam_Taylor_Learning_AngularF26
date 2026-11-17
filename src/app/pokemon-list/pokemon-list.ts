@@ -1,15 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, computed } from '@angular/core';
 import { Pokemon } from '../shared/models/pokemon';
 import { PokemonListItem } from '../pokemon-list-item/pokemon-list-item';
 import { PokemonService } from '../services/pokemon-service';
 import {RouterLink} from '@angular/router';
-
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.html',
   styleUrl: './pokemon-list.scss',
-  imports: [PokemonListItem, RouterLink],
+  imports: [PokemonListItem, RouterLink, DecimalPipe],
 })
 export class PokemonList implements OnInit {
   private pokemonService = inject(PokemonService);
@@ -20,6 +20,12 @@ export class PokemonList implements OnInit {
     this.pokemonService.getPokemonFromApi().subscribe((data) => {
       console.log(data);
     });
+  }
+
+  pokemonTypes = computed(() => [...new Set(this.pokemonList().map((pokemon) => pokemon.type))]);
+
+  countByType(type: string): number {
+    return this.pokemonList().filter((pokemon) => pokemon.type === type).length;
   }
 
   protected apiBaseUrl = this.pokemonService.apiBaseUrl;

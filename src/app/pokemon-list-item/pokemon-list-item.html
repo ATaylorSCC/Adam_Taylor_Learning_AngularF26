@@ -1,23 +1,8 @@
 <div class="pokemon-card" (click)="toggle()">
-  <h3>{{pokemon().name}}</h3>
-  @switch (pokemon().type){
-    @case ('Electric'){<span class = "badge electric">Electric</span>}
-    @case ('Fire'){<span class = "badge fire">Fire</span>}
-    @case ('Water'){<span class = "badge water">Water</span>}
-    @case ('Fighting'){<span class = "badge fighting">Fighting</span>}
-    @case ('Psychic'){<span class = "badge psychic">Psychic</span>}
-    @case ('Grass'){<span class = "badge grass">Grass</span>}
-    @case ('Bug'){<span class = "badge bug">Bug</span>}
-    @case ('Fairy'){<span class = "badge fairy">Fairy</span>}
-    @case ('Ground'){<span class = "badge ground">Ground</span>}
-    @case ('Rock'){<span class = "badge rock">Rock</span>}
-    @case ('Ice'){<span class = "badge ice">Ice</span>}
-    @case ('Flying'){<span class = "badge flying">Flying</span>}
-    @case ('Normal'){<span class = "badge normal">Normal</span>}
-    @default {
-      <span class="badge">Unknown</span>
-    }
-  }
+  <h3>{{pokemon().name.toString() | titlecase }}</h3>
+<span class="badge" [class]="pokemon().type.toLowerCase()">
+  {{ pokemon().type | uppercase}}
+</span>
   @if(pokemon().gender){
     <p>{{pokemon().gender}}</p>
   } @else {
