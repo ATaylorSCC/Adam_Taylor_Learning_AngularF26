@@ -1,13 +1,10 @@
 <div class="pokemon-card" (click)="toggle()">
-  <h3>{{pokemon().name.toString() | titlecase }}</h3>
+  <h3>{{ pokemon().name.toString() | pokemonName:'Meet' | titlecase }}</h3>
 <span class="badge" [class]="pokemon().type.toLowerCase()">
   {{ pokemon().type | uppercase}}
 </span>
-  @if(pokemon().gender){
-    <p>{{pokemon().gender}}</p>
-  } @else {
-    <p class="no-gender">Gender is Unknown</p>
-  }
+
+  <p>Gender: {{ pokemon().gender | genderLabel | uppercase }}</p>
 
 
   @if (expanded){

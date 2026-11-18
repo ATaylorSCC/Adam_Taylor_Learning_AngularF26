@@ -3,12 +3,15 @@ import { PokemonList } from '../pokemon-list/pokemon-list';
 import { Pokemon } from '../shared/models/pokemon';
 import {RouterLink} from '@angular/router';
 import { TitleCasePipe, DecimalPipe, UpperCasePipe } from '@angular/common';
+import { GenderLabelPipe } from '../pipes/gender-label-pipe';
+import { PokemonNamePipe } from '../pipes/pokemon-name-pipe';
 
 @Component({
   selector: 'app-pokemon-list-item',
   templateUrl: './pokemon-list-item.html',
   styleUrl: './pokemon-list-item.scss',
-  imports: [RouterLink, TitleCasePipe, DecimalPipe, UpperCasePipe]
+  imports: [RouterLink, TitleCasePipe, DecimalPipe, UpperCasePipe,
+  GenderLabelPipe, PokemonNamePipe]
 })
 export class PokemonListItem {
   pokemon = input.required<Pokemon>();
