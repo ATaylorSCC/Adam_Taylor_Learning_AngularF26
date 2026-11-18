@@ -10,7 +10,7 @@
 <form [formGroup]="pokemonForm" (ngSubmit)="onSubmit()">
 
   <label>Pokemon Name:</label>
-  <input type="text" formControlName="name" placeholder="Enter Pokemon name">
+  <input #firstField type="text" formControlName="name" placeholder="Enter Pokemon name">
 
   @if (pokemonForm.controls.name.touched) {
     @if (pokemonForm.controls.name.hasError('required')) {

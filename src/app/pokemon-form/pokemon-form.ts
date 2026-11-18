@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject, input, viewChild, ElementRef, afterNextRender } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PokemonService } from '../services/pokemon-service';
 import { pokemonNameValidator } from '../validators/pokemon-name.validator';
@@ -15,17 +15,25 @@ export class PokemonForm {
 
   private fb = inject(FormBuilder);
   private pokemonService = inject(PokemonService);
+  firstField = viewChild<ElementRef<HTMLInputElement>>('firstField');
 
-  pokemonForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2), pokemonNameValidator]],
-    type: ['', Validators.required],
-    gender: [''],
-    generation: ['']
-    },{
-    validators: pokemonGenerationValidator
-  });
+  pokemonForm = this.fb.group(
+    {
+      name: ['', [Validators.required, Validators.minLength(2), pokemonNameValidator]],
+      type: ['', Validators.required],
+      gender: [''],
+      generation: [''],
+    },
+    {
+      validators: pokemonGenerationValidator,
+    },
+  );
 
   constructor() {
+    // this belongs here because this runs after the form is made. ngOnInit runs before the form is made so it wont have a "target"
+    afterNextRender(() => {
+      this.firstField()?.nativeElement.focus();
+    });
     effect(() => {
       const pokemonId = Number(this.id());
 
